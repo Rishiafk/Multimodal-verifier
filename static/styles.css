@@ -1,0 +1,226 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Root element background coverage */
+:root {
+  background: #0a0000;
+  background: radial-gradient(circle at top, #2b0000 0%, #0a0000 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+/* Ensure background covers entire document */
+html, body {
+  background: #0a0000;
+  background: radial-gradient(circle at top, #2b0000 0%, #0a0000 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  height: 100%;
+}
+
+/* Additional coverage for extreme scroll positions */
+html::before, body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top, #2b0000 0%, #0a0000 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffe5e5;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+html {
+  background: #0a0000;
+  background: radial-gradient(circle at top, #2b0000 0%, #0a0000 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  height: 100vh;
+}
+
+.container {
+  width: 90%;
+  max-width: 700px;
+  padding: 30px;
+  margin: 20px auto;
+  background: linear-gradient(135deg, rgba(45,0,0,0.95), rgba(70,5,5,0.9));
+  border-radius: 15px;
+  box-shadow: 0 0 30px #ff2a00a0, 0 0 15px #6a0000 inset;
+  position: relative;
+  overflow: visible;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ffe5e5;
+  font-size: 2.2rem;
+  text-shadow: 0 0 10px #ff3300cc, 0 0 25px #8b0000cc;
+}
+
+textarea {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 2px solid #ff3300;
+  border-radius: 10px;
+  background-color: #1e0000;
+  color: #fff3f3;
+  font-size: 1rem;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  box-shadow: 0 0 10px #8b000055 inset;
+}
+
+textarea:focus {
+  border-color: #ff6347;
+  box-shadow: 0 0 15px #ff634780;
+}
+
+/* Claim text area - smaller size limits */
+#claim {
+  min-height: 100px;
+  max-height: 300px;
+}
+
+/* Evidence text area - larger size limits */
+#evidence {
+  min-height: 200px;
+  max-height: 500px;
+}
+
+.glow-label {
+  font-weight: bold;
+  font-size: 22px;
+  margin-top: 10px;
+  display: block;
+  color: #ffe5e5;
+  text-shadow: 0 0 6px #ff3300;
+}
+
+.check-button,
+.reset-button {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom : 5px;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  background: #ff3300;
+  cursor: pointer;
+  text-shadow: 0 0 5px #fff;
+  box-shadow: 0 0 25px #ff3300aa, 0 0 30px #ff330066 inset;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+}
+
+.check-button:hover,
+.reset-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px #ff4500cc, 0 0 45px #ff450080 inset;
+}
+
+.check-button::before,
+.reset-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, #ff5500 0%, transparent 60%);
+  animation: pulse 2s infinite;
+  opacity: 0.5;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+}
+
+/* 🔥 Ember Particles */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #ff4500, #ff8c00);
+  border-radius: 50%;
+  animation: ember-animation 3s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes ember-animation {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4) translateY(-20px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1) translateY(-40px);
+    opacity: 0;
+  }
+}
+
+/* Result Box Styling */
+.result-box {
+  margin-top: 30px;
+  background: #1a0000;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #ff330066;
+  color: #ffdede;
+  overflow-wrap: break-word;
+}
+
+.result-box h2 span {
+  color: #ff4c4c;
+  text-shadow: 0 0 5px #ff4c4c, 0 0 10px #8b0000;
+}
+
+.result-box p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-top: 15px;
+  color: #ffdede;
+  text-shadow: 0 0 3px #ff3300;
+}

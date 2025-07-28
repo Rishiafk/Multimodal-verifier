@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multimodal Verifier</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="glow-text"> Claim-Evidence Verifier</h1>
+
+    <form action="/" method="post">
+      <label for="claim" class="glow-label">Statement to Verify :</label><br />
+      <textarea id="claim" name="claim" rows="3" required></textarea><br />
+
+      <label for="evidence" class="glow-label">Supporting Evidence :</label><br />
+      <textarea id="evidence" name="evidence" rows="5" required></textarea><br />
+
+      <button type="submit" class="check-button"> Check</button>
+    </form>
+
+    <form action="/" method="get">
+      <button type="submit" class="reset-button">⟳ Reset</button>
+    </form>
+
+    {% if result %}
+    <div class="result-box">
+      <h2 class="glow-label">Verdict: <span>{{ result }}</span></h2>
+      <p class="glow-label">Explanation: {{ explanation }}</p>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Sparkle Animation Script -->
+  <script>
+    const sparkles = () => {
+      const buttons = document.querySelectorAll(".check-button, .reset-button");
+      buttons.forEach(btn => {
+        for (let i = 0; i < 20; i++) {
+          const sparkle = document.createElement("div");
+          sparkle.className = "sparkle";
+          sparkle.style.left = `${Math.random() * 100}%`;
+          sparkle.style.top = `${Math.random() * 100}%`;
+          btn.appendChild(sparkle);
+        }
+      });
+    };
+    sparkles();
+  </script>
+</body>
+</html>
