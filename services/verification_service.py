@@ -22,9 +22,12 @@ class VerificationService:
         Claim: "{claim}"
         Evidence: "{evidence}"
 
-        Provide a response in this format:
-        Verdict: <Supported/Partially Supported/Not Supported>
-        Explanation: <brief explanation>
+        Provide a response in valid JSON format with the following keys:
+        - "verdict": <"Supported" | "Partially Supported" | "Not Supported">
+        - "explanation": <brief explanation>
+        - "confidence": <float between 0.0 and 1.0>
+        
+        Ensure your entire response is just the JSON object and nothing else.
         """
 
         try:
