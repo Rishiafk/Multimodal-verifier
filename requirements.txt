@@ -3,3 +3,4 @@ sentence-transformers
 torch
 cohere
 python-dotenv
+nltk
