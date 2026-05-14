@@ -1,4 +1,7 @@
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ParserService:
     @staticmethod
@@ -37,7 +40,9 @@ class ParserService:
             
             return result, explanation, color
             
-        except json.JSONDecodeError:
+        except json.JSONDecodeError as e:
+            logger.error(f"JSON Decode Error in model response: {str(e)}")
             return "Error", "Unable to parse the model response as JSON.", "error"
         except Exception as e:
-            return "Error", f"Unexpected parsing error: {str(e)}", "error"
+            logger.error(f"Unexpected parsing error: {str(e)}")
+            return "Error", "Unable to generate grounded verification.", "error"

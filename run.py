@@ -16,9 +16,12 @@ def index():
         claim = request.form["claim"]
         evidence = request.form["evidence"]
         
-        result, explanation, color = verification_service.verify_claim(claim, evidence)
+        result, explanation, color, retrieval_trace = verification_service.verify_claim(claim, evidence)
+        # Fallback trace for UI consistency if method wasn't POST
+    else:
+        retrieval_trace = []
 
-    return render_template("index.html", result=result, explanation=explanation, color=color)
+    return render_template("index.html", result=result, explanation=explanation, color=color, retrieval_trace=retrieval_trace)
 
 if __name__ == "__main__":
     app.run(debug=True)
