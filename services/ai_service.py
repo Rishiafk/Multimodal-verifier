@@ -11,15 +11,17 @@ class AIService:
     def generate_response(self, prompt: str) -> str:
         try:
             response = self.client.chat(
-                model="command-r",
+                model="command",
                 message=prompt,
                 temperature=0.3,
                 max_tokens=300
             )
             return response.text
-        except cohere.CohereError as e:
-            logger.error(f"Cohere API Error: {str(e)}")
-            raise RuntimeError("Verification temporarily unavailable.")
         except Exception as e:
-            logger.error(f"Unexpected AI Service Error: {str(e)}")
-            raise RuntimeError("Unable to generate grounded verification.")
+            error_type = e.__class__.__name__
+            logger.error(f"AI Generation Error [{error_type}]: {str(e)}")
+            
+            if "ApiError" in error_type or "Cohere" in error_type:
+                raise RuntimeError("Verification temporarily unavailable.")
+            else:
+                raise RuntimeError("Unable to generate grounded verification.")
