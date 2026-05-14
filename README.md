@@ -1,172 +1,396 @@
-# 🔥 Multimodal Claim-Evidence Verifier
+# 🧠 NexusAI — Multimodal Claim-Evidence Verifier
 
-A sophisticated web application that uses AI to verify claims against provided evidence. Built with Flask and powered by Cohere's Command-R model, this tool provides intelligent analysis of claim-evidence relationships with a stunning dark theme UI.
+A modern Retrieval-Augmented Generation (RAG) powered AI verification platform that analyzes claims against supporting evidence using semantic retrieval, embeddings, and grounded AI reasoning.
 
-## ✨ Features
-
-- **AI-Powered Verification**: Uses Cohere's Command-R model for intelligent claim analysis
-- **Three-Tier Classification**: Supports, Partially Supports, or Not Supported verdicts
-- **Detailed Explanations**: Provides clear reasoning for each verification result
-- **Beautiful UI**: Dark theme with glowing effects and smooth animations
-- **Real-time Processing**: Instant results with responsive design
-- **Error Handling**: Graceful error handling with user-friendly messages
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Python 3.7 or higher
-- Cohere API key
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/multimodal-verifier.git
-   cd multimodal-verifier
-   ```
-
-2. **Create a virtual environment**
-   ```bash
-   python -m venv venv
-   
-   # On Windows
-   venv\Scripts\activate
-   
-   # On macOS/Linux
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Set up environment variables**
-   
-   Create a `.env` file in the project root:
-   ```env
-   COHERE_API_KEY=your_cohere_api_key_here
-   ```
-
-5. **Run the application**
-   ```bash
-   python run.py
-   ```
-
-6. **Open your browser**
-   
-   Navigate to `http://127.0.0.1:5000`
-
-## 📖 Usage
-
-1. **Enter a Statement**: Type or paste the statement you want to verify in the "Statement to Verify" field
-2. **Provide Evidence**: Enter the evidence that supports or refutes the statement in the "Supporting Evidence" field
-3. **Submit for Analysis**: Click the "Check" button to process your submission
-4. **Review Results**: View the AI-generated verdict and explanation
-5. **Reset**: Use the "Reset" button to clear the form and start over
-
-### Example Usage
-
-**Statement**: "Climate change is primarily caused by human activities"
-
-**Evidence**: "Multiple peer-reviewed studies show that CO2 emissions from fossil fuel burning have increased atmospheric CO2 levels by 40% since pre-industrial times, and climate models consistently attribute recent warming to human activities."
-
-**Expected Result**: The AI would likely classify this as "Supported" with an explanation of how the evidence strongly supports the statement.
-
-## 🏗️ Project Structure
-
-```
-multimodal-verifier/
-├── run.py                 # Main Flask application
-├── requirements.txt       # Python dependencies
-├── .env                  # Environment variables (create this)
-├── static/
-│   └── styles.css        # CSS styling with dark theme
-├── templates/
-│   └── index.html        # Main HTML template
-└── README.md            # This file
-```
-
-## 🔧 Configuration
-
-### Environment Variables
-
-- `COHERE_API_KEY`: Your Cohere API key (required)
-
-### Model Configuration
-
-The application uses Cohere's Command-R model with the following settings:
-- **Model**: `command-r`
-- **Temperature**: 0.3 (for consistent results)
-- **Max Tokens**: 300 (for concise responses)
-
-## 🎨 UI Features
-
-- **Dark Theme**: Elegant dark background with red accents
-- **Glowing Effects**: Animated buttons with pulsing effects
-- **Responsive Design**: Works on desktop and mobile devices
-- **Smooth Animations**: Sparkle effects and hover animations
-- **Color-coded Results**: Different colors for different verdict types
-
-## 🛠️ Dependencies
-
-- **Flask**: Web framework for the application
-- **Cohere**: AI model for claim verification
-- **python-dotenv**: Environment variable management
-- **sentence-transformers**: Text processing (if needed for future features)
-- **torch**: PyTorch for machine learning capabilities
-
-## 🔍 How It Works
-
-1. **Input Processing**: The application receives claim and evidence text from the user
-2. **Prompt Engineering**: Creates a structured prompt for the AI model
-3. **AI Analysis**: Sends the prompt to Cohere's Command-R model
-4. **Response Parsing**: Extracts verdict and explanation from the AI response
-5. **Result Display**: Shows the results with appropriate styling
-
-## 🚧 Error Handling
-
-The application handles various error scenarios:
-- **API Errors**: Network issues or invalid API keys
-- **Parsing Errors**: Malformed AI responses
-- **Missing Input**: Form validation for required fields
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Cohere**: For providing the AI model API
-- **Flask**: For the web framework
-- **CSS Animations**: For the beautiful UI effects
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Issues](https://github.com/yourusername/multimodal-verifier/issues) page
-2. Create a new issue with detailed information
-3. Include your Python version and error messages
-
-## 🔮 Future Enhancements
-
-- [ ] Support for file uploads (PDF, images)
-- [ ] Batch processing of multiple claims
-- [ ] Export results to PDF/CSV
-- [ ] User authentication and history
-- [ ] API endpoint for programmatic access
-- [ ] Integration with other AI models
+Built with Flask, Cohere AI, Sentence Transformers, and a modular scalable backend architecture.
 
 ---
 
-**Made with ❤️ and ☕ by Rishi Kumar** 
+# ✨ Features
+
+## 🔍 AI-Powered Claim Verification
+- Verifies claims against supporting evidence using Cohere LLMs
+- Produces structured verdicts:
+  - ✅ Supported
+  - ⚠️ Partially Supported
+  - ❌ Refuted
+
+---
+
+## 🧠 Retrieval-Augmented Generation (RAG)
+- Semantic chunking pipeline
+- Embedding-based evidence retrieval
+- Cosine similarity ranking
+- Top-K relevant evidence chunk selection
+- Grounded reasoning generation
+
+---
+
+## 📚 Embedding Pipeline
+- Uses `sentence-transformers/all-MiniLM-L6-v2`
+- Sentence-aware chunking
+- Metadata-enriched vector generation
+- Retrieval trace support
+- Similarity threshold filtering
+
+---
+
+## ⚡ Modern Modular Architecture
+
+Refactored from a monolithic Flask app into a scalable modular monolith.
+
+### Includes:
+- `services/`
+- `config/`
+- `vector_store/`
+- `uploads/`
+- reusable AI service layers
+- parser services
+- verification orchestration
+
+---
+
+## 🛡️ Production-Oriented Safeguards
+- Structured JSON response parsing
+- Token-aware prompt budgeting
+- Exception sanitization
+- Graceful frontend degradation
+- Backend logging + observability
+- Safe fallback handling
+
+---
+
+## 🎨 Modern AI Dashboard UI
+- Dark futuristic interface
+- Responsive design
+- Animated AI confidence indicators
+- Clean verification panels
+- Real-time verification results
+
+---
+
+# 🏗️ Updated Architecture
+
+```text
+User Input
+   ↓
+Verification Service
+   ↓
+Embedding Service
+   ↓
+Semantic Chunk Retrieval
+   ↓
+Relevant Evidence Chunks
+   ↓
+Cohere AI Generation
+   ↓
+Structured JSON Parsing
+   ↓
+Frontend Result Rendering
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+multimodal-verifier/
+│
+├── config/
+│   ├── __init__.py
+│   └── settings.py
+│
+├── services/
+│   ├── __init__.py
+│   ├── ai_service.py
+│   ├── embedding_service.py
+│   ├── parser_service.py
+│   └── verification_service.py
+│
+├── vector_store/
+│
+├── uploads/
+│
+├── static/
+│   └── styles.css
+│
+├── templates/
+│   └── index.html
+│
+├── run.py
+├── requirements.txt
+├── .env
+└── README.md
+```
+
+---
+
+# 🚀 Quick Start
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/Rishiafk/Multimodal-verifier.git
+cd Multimodal-verifier
+```
+
+---
+
+## 2. Create Virtual Environment
+
+### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### macOS/Linux
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+## 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4. Create `.env`
+
+```env
+COHERE_API_KEY=your_api_key_here
+```
+
+---
+
+## 5. Run Application
+
+```bash
+python run.py
+```
+
+---
+
+## 6. Open Browser
+
+```text
+http://127.0.0.1:5000
+```
+
+---
+
+# 🧪 Example Usage
+
+## Claim
+
+```text
+The Eiffel Tower is located in Paris.
+```
+
+## Evidence
+
+```text
+The Eiffel Tower is one of the most famous landmarks in Paris, France.
+```
+
+## Expected Result
+
+```text
+SUPPORTED
+```
+
+with grounded reasoning generated from retrieved semantic evidence chunks.
+
+---
+
+# 🔍 How the RAG Pipeline Works
+
+## Step 1 — Evidence Chunking
+Large evidence text is split into semantically coherent chunks.
+
+---
+
+## Step 2 — Embedding Generation
+Each chunk is converted into vector embeddings using Sentence Transformers.
+
+---
+
+## Step 3 — Semantic Retrieval
+The claim embedding is compared against evidence embeddings using cosine similarity.
+
+---
+
+## Step 4 — Top-K Chunk Selection
+Most relevant chunks are selected based on similarity thresholds.
+
+---
+
+## Step 5 — Grounded AI Verification
+Only the retrieved evidence chunks are passed into the LLM.
+
+---
+
+## Step 6 — Structured Parsing
+The model returns structured JSON:
+- verdict
+- explanation
+- confidence
+
+---
+
+# ⚙️ Tech Stack
+
+| Category | Technology |
+|---|---|
+| Backend | Flask |
+| LLM | Cohere |
+| Embeddings | Sentence Transformers |
+| Vector Logic | Cosine Similarity |
+| Frontend | HTML, CSS |
+| Environment | Python |
+| Architecture | Modular Monolith |
+
+---
+
+# 🛠️ Current Capabilities
+
+- ✅ Claim verification
+- ✅ Semantic retrieval
+- ✅ Grounded reasoning
+- ✅ Embedding pipeline
+- ✅ RAG workflow
+- ✅ Confidence scoring
+- ✅ Error handling
+- ✅ Modular architecture
+
+---
+
+# 🔮 Planned Enhancements
+
+## Multimodal Expansion
+- [ ] Image verification
+- [ ] OCR pipeline
+- [ ] PDF ingestion
+- [ ] Audio evidence support
+
+---
+
+## Advanced Retrieval
+- [ ] FAISS vector database
+- [ ] Hybrid retrieval
+- [ ] Reranking pipeline
+- [ ] Cross-encoder retrieval
+
+---
+
+## AI Enhancements
+- [ ] Hallucination detection
+- [ ] Source citation system
+- [ ] Multi-agent verification
+- [ ] Self-consistency reasoning
+
+---
+
+## Platform Features
+- [ ] Authentication
+- [ ] Verification history
+- [ ] Export reports
+- [ ] Public API
+- [ ] Batch verification
+
+---
+
+# 🧪 Error Handling
+
+The system gracefully handles:
+- invalid API responses
+- token overflow
+- retrieval failures
+- malformed JSON
+- unsupported model responses
+- frontend-safe degradation
+
+---
+
+# 📈 Engineering Improvements Made
+
+## Backend
+- Refactored monolithic architecture
+- Introduced service orchestration
+- Added reusable verification pipeline
+
+---
+
+## AI Pipeline
+- Implemented semantic retrieval
+- Added token budgeting
+- Added structured parsing
+
+---
+
+## Stability
+- Added logging
+- Added fallback mechanisms
+- Added exception sanitization
+
+---
+
+# 🤝 Contributing
+
+## Steps
+
+```bash
+git checkout -b feature-name
+git commit -m "Added feature"
+git push origin feature-name
+```
+
+Then open a Pull Request.
+
+---
+
+# 📝 License
+
+This project is licensed under the MIT License.
+
+---
+
+# 🙏 Acknowledgments
+
+- Cohere
+- Hugging Face
+- Sentence Transformers
+- Flask
+- Open-source AI ecosystem
+
+---
+
+# 👨‍💻 Developer
+
+Built and engineered by **Rishi Kumar**
+
+Focused on:
+- AI Systems
+- Retrieval-Augmented Generation
+- Full Stack Development
+- Intelligent Verification Systems
+
+---
+
+# ⭐ Project Status
+
+## Current Status:
+✅ Functional RAG Verification Platform
+
+## Architecture Status:
+✅ Modularized and scalable
+
+## Next Major Phase:
+🚀 Multimodal AI expansion
