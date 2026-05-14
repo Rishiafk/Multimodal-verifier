@@ -1,14 +1,10 @@
 from flask import Flask, render_template, request
-import cohere
-import os
-from dotenv import load_dotenv
-
-# Load API Key from .env
-load_dotenv()
-cohere_api_key = os.getenv("COHERE_API_KEY")
-co = cohere.Client(cohere_api_key)
+from config.settings import Config
+from services.ai_service import AIService
 
 app = Flask(__name__)
+app.config.from_object(Config)
+ai_service = AIService()
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -35,14 +31,7 @@ def index():
         """
 
         try:
-            response = co.chat(
-            model="command-r",
-            message=prompt,
-            temperature=0.3,
-            max_tokens=300
-            )
-            answer = response.text
-
+            answer = ai_service.generate_response(prompt)
 
             if "Verdict:" in answer and "Explanation:" in answer:
                 verdict_line = [line for line in answer.split("\n") if "Verdict:" in line][0]
