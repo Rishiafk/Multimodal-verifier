@@ -29,7 +29,7 @@ class ParserService:
 
             if "Supported" in result and "Partially" not in result and "Not" not in result:
                 color = "supported"
-            elif "Partially" in result:
+            elif "Partially" in result or "Insufficient" in result:
                 color = "partially-supported"
             elif "Not Supported" in result:
                 color = "not-supported"

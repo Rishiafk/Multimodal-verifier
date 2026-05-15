@@ -79,26 +79,48 @@ class VerificationService:
                     retrieval_trace.append({
                         "chunk_id": chunk.get("chunk_id"),
                         "chunk_index": chunk.get("chunk_index"),
+                        "source_id": chunk.get("source_id"),
                         "similarity_score": score
                     })
 
             prompt = f"""
-            Given the following claim and the related evidence context, determine whether the claim is:
-            - Supported
-            - Partially Supported
-            - Not Supported
-
-            Then provide a short explanation referencing the provided evidence chunks where applicable.
+            You are a careful, analytical research assistant. Evaluate the following Claim against the provided Evidence Context.
 
             Claim: "{claim}"
             
             Evidence Context:
             {context_text}
 
+            Perform evidence-grounded reasoning based strictly on the provided Evidence Context.
+            
+            Anti-Hallucination & Reasoning Constraints:
+            1. DO NOT overstate conclusions or assume unsupported facts.
+            2. DO NOT treat weak correlations as definitive proof.
+            3. Explicitly acknowledge ambiguity, missing evidence, and evidence limitations.
+            4. Distinguish between direct factual evidence, circumstantial evidence, inferred implications, and purely speculative evidence.
+            
+            Explanation Requirements:
+            - Explicitly cite specific retrieved chunks (e.g., "[Evidence Chunk 1]") in your reasoning.
+            - Explain the semantic alignment (or lack thereof) between the claim and the evidence.
+            - Explain any contradictions, uncertainty, or conflicting information found in the evidence.
+            
+            Confidence Calibration Rules:
+            - Direct, factual evidence -> High confidence (0.8 - 1.0)
+            - Indirect or circumstantial evidence -> Medium confidence (0.5 - 0.79)
+            - Weak semantic similarity or inferred evidence -> Low confidence (0.1 - 0.49)
+            - Conflicting evidence -> Reduce confidence significantly.
+            - Insufficient evidence -> Low confidence ceiling (max 0.4).
+
+            Determine whether the claim is:
+            - "Supported"
+            - "Partially Supported"
+            - "Not Supported"
+            - "Insufficient Evidence"
+
             Provide a response in valid JSON format with the following keys:
-            - "verdict": <"Supported" | "Partially Supported" | "Not Supported">
-            - "explanation": <brief explanation referencing evidence>
-            - "confidence": <float between 0.0 and 1.0>
+            - "verdict": <"Supported" | "Partially Supported" | "Not Supported" | "Insufficient Evidence">
+            - "explanation": <detailed analytical reasoning meeting the requirements above>
+            - "confidence": <float between 0.0 and 1.0 calibrated according to the rules>
             
             Ensure your entire response is just the JSON object and nothing else.
             """

@@ -143,6 +143,31 @@
                 <h3 class="analysis-title">Reasoning</h3>
                 <p class="analysis-content">{{ explanation }}</p>
               </div>
+              
+              {% if retrieval_trace and retrieval_trace|length > 0 %}
+              <div class="retrieval-trace-panel">
+                <details class="trace-details">
+                  <summary class="trace-summary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    Retrieval Trace (Debug)
+                  </summary>
+                  <div class="trace-content">
+                    {% for chunk in retrieval_trace %}
+                    <div class="trace-item">
+                      <div class="trace-item-header">
+                        <span>Chunk [{{ chunk.chunk_index + 1 }}]</span>
+                        <span class="trace-score">Score: {{ "%.4f"|format(chunk.similarity_score) }}</span>
+                      </div>
+                      <div class="trace-meta-row">
+                        <div><span class="trace-label">Chunk ID:</span> {{ chunk.chunk_id }}</div>
+                        <div><span class="trace-label">Source ID:</span> {{ chunk.source_id }}</div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </details>
+              </div>
+              {% endif %}
             </div>
           {% else %}
             <!-- Empty State -->
